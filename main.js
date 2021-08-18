@@ -45,5 +45,25 @@ sliders.forEach(slider => {
   appearObserver.observe(slider)
 })
 
+// lazy load
+const lazyImg = document.querySelectorAll('.lazy')
+const lazyOptions = {
+  rootMargin: '0px',
+  root: null,
+  threshold: 0
+}
 
+const lazyImgObserver = new IntersectionObserver(function (entries, lazyImgObserver) {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      console.log(entry.target)
+      entry.target.src = entry.target.dataset.src
+      lazyImgObserver.unobserve(entry.target)
+    }
+  })
+}, lazyOptions)
+
+lazyImg.forEach(image => {
+  lazyImgObserver.observe(image)
+})
 
