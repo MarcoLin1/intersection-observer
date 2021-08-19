@@ -48,7 +48,7 @@ sliders.forEach(slider => {
 // lazy load
 const lazyImg = document.querySelectorAll('.lazy')
 const lazyOptions = {
-  rootMargin: '0px',
+  rootMargin: '-100px 0px 0px 0px',
   root: null,
   threshold: 0
 }
@@ -67,3 +67,50 @@ lazyImg.forEach(image => {
   lazyImgObserver.observe(image)
 })
 
+// infinite scrolling
+const infiniteWrap = document.querySelector('#infinite-wrap')
+const infinite = document.querySelector('.detective')
+let count = 1
+let infiniteOptions = {
+  root: null,
+  rootMargin: '-200px 0px 0px 0px',
+  threshold: 0
+}
+
+let infiniteScrollingObserver = new IntersectionObserver(function(entries, infiniteScrollingObserver) {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+    fetch('https://jsonplaceholder.typicode.com/posts/' + count)
+      .then(res => res.json())
+      .then(res => {
+        console.log(res)
+        // infiniteScrollingObserver.unobserve(infinite)
+        let item = 
+        `
+        <div class="card text-left">
+            <img class="left-item image" src="https://picsum.photos/id/1${ res.id }/335/335"/>
+            <div class="card-body right-item text">
+              <div class="card-title">${ res.title }</div>
+              <div class="card-text">${ res.body }</div>
+            </div>
+          </div>
+        `
+        infiniteWrap.insertAdjacentHTML('beforeend', item)
+        // infiniteWrap.insertAdjacentHTML('afterend', item)
+        count++
+    })
+      .then(() => {
+        if (count <= 2) {
+          infiniteScrollingObserver.observe(infinite)
+        } else {
+          const end = `<div class="finish-alert" role="alert"><div class="finish-text">Finish</div></div>`
+          infiniteWrap.insertAdjacentHTML('beforeend', end)
+          // infiniteWrap.insertAdjacentHTML('afterend', end)
+          infiniteScrollingObserver.disconnect()
+        }
+      })
+    }
+  })
+}, infiniteOptions)
+
+infiniteScrollingObserver.observe(infinite)

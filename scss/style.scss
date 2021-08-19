@@ -7,13 +7,6 @@ header {
   display: none;
 }
 
-.site-logo {
-  font-weight: 900;
-  font-size: 1rem;
-  color: var(--text);
-  text-decoration: none;
-}
-
 .initial-header {
   display: flex;
 }
@@ -43,7 +36,7 @@ header {
   display: flex;
 }
 
-.nav__link {
+.nav__link, .site-logo {
   --spacing: 1rem;
   text-decoration: none;
   color: inherit;
@@ -98,6 +91,22 @@ header {
   }
 }
 
+.home-more-stuff {
+  background-color: #f4f4f4;
+}
+
+.home-more-stuff-title, .lazy-load-title {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px 0 0 0;
+  text-align: center;
+}
+
+.site-logo {
+  font-weight: 900;
+  font-size: 1.5rem;
+}
+
 .nav-scrolled {
   --text: #333;
   --text-inverse: #f4f4f4;
@@ -119,6 +128,10 @@ header {
   padding: 4em 0;
   max-width: 900px;
   margin: 0 auto;
+}
+
+.home-about-title, .home-about-description {
+  text-align: center;
 }
 
 .columns {
@@ -168,7 +181,7 @@ header {
   opacity: 1;
 }
 
-.lazy-load {
+.lazy-load, .card {
   display: grid;
   padding: 4em 0;
   grid-gap: 2rem;
@@ -186,22 +199,75 @@ header {
 
 .lazy-video {
   width: 400px;
-  height: 300px;
+  height: 400px;
+}
+
+.infinite-container {
+  background-color: #f4f4f4; 
+}
+
+.card-title {
+  text-align: center;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.finish-alert {
+  display: flex;
+  justify-content: center;
+  padding-bottom: 10px;
+}
+
+.finish-text {
+  text-decoration: none;
+  color: inherit;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+  border: 1.5px solid currentColor;
+  border-radius: 2em;
+  transition: background 250ms ease-in-out;
+  letter-spacing: 1px;
+  padding: 0.75em 1.5em;
+  &:hover {
+    background: #333;
+    color: #f4f4f4;
+    border-color: #333;
+    cursor: pointer;
+  }
 }
 
 @media screen and (max-width: 875px) {
-  .lazy-load {
-    display: block;
+  .text {
+    grid-area: text;
+    grid-column: 0;
+    margin-top: 50px;
   }
-  .left-item {
-    display: block;
-    margin: 0 auto;
+  .image {
+    grid-area: image;
+    grid-column: 0;
+    width: 400px;
+    height: 400px;
   }
-  .right-item {
-    display: block;
-    margin: 0 auto;
+  .more-stuff-grid, .lazy-load, .card {
+    grid-template-rows: minmax(200px, 400px) 150px;
+    grid-template-columns: minmax(1em, 1fr) 200px 200px minmax(1em, 1fr);
+    grid-template-areas: 
+      ".image image ."
+      ". text text .";
+    grid-gap: 0;
   }
-  .text-item {
-    margin: 1.5rem auto 1.5rem auto;
-  }
+  // .lazy-load {
+  //   display: block;
+  // }
+  // .left-item {
+  //   display: block;
+  //   margin: 0 auto;
+  // }
+  // .right-item {
+  //   display: block;
+  //   margin: 0 auto;
+  // }
+  // .text-item {
+  //   margin: 1.5rem auto 1.5rem auto;
+  // }
 }
